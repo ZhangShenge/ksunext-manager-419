@@ -24,6 +24,11 @@ data class KernelVersion(val major: Int, val patchLevel: Int, val subLevel: Int)
             return patchLevel >= 10
         }
 
+        // 4.19+ (LineageOS backports new APIs onto 4.19, treat as capable)
+        if (major == 4 && patchLevel >= 19) {
+            return true
+        }
+
         return false
     }
 
@@ -32,7 +37,7 @@ data class KernelVersion(val major: Int, val patchLevel: Int, val subLevel: Int)
     }
 
     fun isLegacy(): Boolean {
-        return major == 4 && patchLevel in 1..18
+        return major == 4
     }
 
     fun isGKI1(): Boolean {
