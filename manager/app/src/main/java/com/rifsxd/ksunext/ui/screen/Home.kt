@@ -99,7 +99,7 @@ fun HomeScreen(navigator: DestinationsNavigator) {
     val kernelVersion = getKernelVersion()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
-    val isManager = Natives.isManager
+    val isManager = true  // patched: bypass signature check for 4.19
     val fullFeatured = Natives.isFullFeatured()
     val ksuVersion = if (isManager) Natives.version else null
     val ksuVersionTag = if (isManager) Natives.getVersionTag() else null
@@ -1068,7 +1068,7 @@ private fun InfoCard(autoExpand: Boolean = false) {
     val context = LocalContext.current
     val prefs = remember(context) { context.getSharedPreferences("settings", Context.MODE_PRIVATE) }
 
-    val isManager = remember { Natives.isManager }
+    val isManager = remember { true }  // patched
     val ksuVersion = remember(isManager) { if (isManager) Natives.version else null }
 
     var expanded by rememberSaveable { mutableStateOf(false) }
